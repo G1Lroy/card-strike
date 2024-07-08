@@ -1,5 +1,6 @@
 import { AGENT_HP } from '../../const/game-const';
-import { IAgent, Status, WeaponSlot, EquipmentSlot, Side } from './types';
+import { IStatus } from '../status/types';
+import { IAgent, WeaponSlot, EquipmentSlot, Side } from './types';
 
 class Agent implements IAgent {
     id: number;
@@ -7,15 +8,18 @@ class Agent implements IAgent {
     side: Side;
     maxHealth: number = AGENT_HP;
     currentHealth: number = AGENT_HP;
-    statuses: Status[] = [];
+    statuses: IStatus[] = [];
     equipment: EquipmentSlot | null = null;
     weapon: WeaponSlot | null = null;
+    modificator: null = null;
 
-    constructor({ id, image, side, }: IAgent) {
+    constructor(id: number, image: string, side: Side) {
         this.id = id;
         this.image = image;
         this.side = side;
     }
+
+    // COMMON //
 
     attack(target: IAgent): void {
         if (!target) {
@@ -27,7 +31,6 @@ class Agent implements IAgent {
             target.receiveDamage(this.weapon.damage);
         }
     }
-
     receiveDamage(amount: number): void {
         this.currentHealth -= amount;
 
@@ -35,41 +38,48 @@ class Agent implements IAgent {
             this.die();
         }
     }
-
-    setStatus(status: Status): void {
-        this.statuses.push(status);
-        console.log(`${this.id} получил статус: ${status}`);
+    die(): void {
+        console.log(`${this.id} умер.`);
+        this.clearStatuses()
     }
 
-    removeStatus(status: Status): void {
-        this.statuses = this.statuses.filter(s => s !== status);
-        console.log(`${this.id} удалил статус: ${status}`);
+    // STATUSES //
+
+    setStatus(status: IStatus): void {
+        this.clearStatuses()
+        this.statuses.push(status)
     }
+    removeStatus(statusId: number): void {
+        this.statuses = this.statuses.filter(status => status.id !== statusId);
+    }
+    clearStatuses(): void {
+        this.statuses = []
+    }
+
+
+    // EQUIP //
 
     setEquip(item: EquipmentSlot): void {
         this.equipment = item;
         console.log(`${this.id} экипировал предмет: ${item.item}`);
     }
-
     removeEquip(): void {
         console.log(`${this.id} снял предмет: ${this.equipment?.item}`);
         this.equipment = null;
     }
 
+    // WEAPONS //
+
     setWeapon(weapon: WeaponSlot): void {
         this.weapon = weapon;
         console.log(`${this.id} экипировал оружие: ${weapon.weapon}`);
     }
-
     removeWeapon(): void {
         console.log(`${this.id} снял оружие: ${this.weapon?.weapon}`);
         this.weapon = null;
     }
 
-    die(): void {
-        console.log(`${this.id} умер.`);
 
-    }
 }
 
 export default Agent;

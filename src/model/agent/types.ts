@@ -1,14 +1,19 @@
+
+import { IStatus, StatusEffect } from "../status/types";
 import { Weapons, Equip } from "../types";
 
-export type StatusNames = 'Flashed' | 'Smoked' | 'Defusing' | 'Planting' | 'Creeping';
 
-export type Side = 'Ct' | 'T'
+
+export enum Side {
+    CT = "CT",
+    TT = "TT"
+}
 
 export interface WeaponSlot {
     id: number;
     weapon: Weapons
     damage: number;
-    
+
 }
 
 export interface EquipmentSlot {
@@ -17,12 +22,7 @@ export interface EquipmentSlot {
     image: string;
 }
 
-export interface Status {
-    id: number;
-    duration: number; // number of turns
-    image: string;
-    effect: StatusNames; // temp
-}
+
 
 export interface IAgent {
     id: number;
@@ -30,16 +30,18 @@ export interface IAgent {
     side: Side;
     maxHealth: number;
     currentHealth: number;
-    statuses: Status[];
+    statuses: IStatus[];
     equipment: EquipmentSlot | null;
     weapon: WeaponSlot | null;
+    modificator: StatusEffect | null;
 
     attack(target: IAgent): void;
     receiveDamage(amount: number): void;
     die(): void;
 
-    setStatus(status: Status): void;
-    removeStatus(status: Status): void;
+    setStatus(status: IStatus): void
+    removeStatus(statusId: number): void
+    clearStatuses(): void
 
     setEquip(item: EquipmentSlot): void;
     removeEquip(): void;
