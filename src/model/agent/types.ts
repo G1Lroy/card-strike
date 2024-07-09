@@ -4,19 +4,18 @@ import { Weapons, Equip } from "../types";
 
 
 
-export enum Side {
+export enum ISide {
     CT = "CT",
     TT = "TT"
 }
 
-export interface WeaponSlot {
+export interface IWeapon {
     id: number;
     weapon: Weapons
     damage: number;
-
 }
 
-export interface EquipmentSlot {
+export interface IEquipment {
     id: number;
     item: Equip
     image: string;
@@ -27,12 +26,12 @@ export interface EquipmentSlot {
 export interface IAgent {
     id: number;
     image: string;
-    side: Side;
+    side: ISide;
     maxHealth: number;
     currentHealth: number;
     statuses: IStatus[];
-    equipment: EquipmentSlot | null;
-    weapon: WeaponSlot | null;
+    equipment: IEquipment | null;
+    weapon: IWeapon | null;
     modificator: StatusEffect | null;
 
     attack(target: IAgent): void;
@@ -43,9 +42,9 @@ export interface IAgent {
     removeStatus(statusId: number): void
     clearStatuses(): void
 
-    setEquip(item: EquipmentSlot): void;
+    setEquip(item: IEquipment): void;
     removeEquip(): void;
 
-    setWeapon(weapon: WeaponSlot): void;
+    setWeapon(weapon: IWeapon): void;
     removeWeapon(): void;
 }

@@ -1,19 +1,19 @@
 import { AGENT_HP } from '../../const/game-const';
 import { IStatus } from '../status/types';
-import { IAgent, WeaponSlot, EquipmentSlot, Side } from './types';
+import { IAgent, IEquipment, IWeapon, ISide } from './types';
 
 class Agent implements IAgent {
     id: number;
     image: string;
-    side: Side;
+    side: ISide;
     maxHealth: number = AGENT_HP;
     currentHealth: number = AGENT_HP;
     statuses: IStatus[] = [];
-    equipment: EquipmentSlot | null = null;
-    weapon: WeaponSlot | null = null;
+    equipment: IEquipment | null = null;
+    weapon: IWeapon | null = null;
     modificator: null = null;
 
-    constructor(id: number, image: string, side: Side) {
+    constructor(id: number, image: string, side: ISide) {
         this.id = id;
         this.image = image;
         this.side = side;
@@ -59,7 +59,7 @@ class Agent implements IAgent {
 
     // EQUIP //
 
-    setEquip(item: EquipmentSlot): void {
+    setEquip(item: IEquipment): void {
         this.equipment = item;
         console.log(`${this.id} экипировал предмет: ${item.item}`);
     }
@@ -70,7 +70,7 @@ class Agent implements IAgent {
 
     // WEAPONS //
 
-    setWeapon(weapon: WeaponSlot): void {
+    setWeapon(weapon: IWeapon): void {
         this.weapon = weapon;
         console.log(`${this.id} экипировал оружие: ${weapon.weapon}`);
     }

@@ -1,10 +1,10 @@
 import Agent from ".";
 import { PlantingStatus } from "../status/planting";
-import { Side } from "./types";
+import { ISide } from "./types";
 
 export class TT_Agent extends Agent {
     constructor(id: number) {
-        const side: Side = Side.TT
+        const side: ISide = ISide.TT
         const image: string = "path/to/img"
         super(id, image, side);
     }

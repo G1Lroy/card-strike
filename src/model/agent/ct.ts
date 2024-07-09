@@ -1,10 +1,10 @@
 import Agent from ".";
 import { DefusingStatus } from "../status/defusing";
-import { Side } from "./types";
+import { ISide } from "./types";
 
 export class CT_Agent extends Agent {
     constructor(id: number) {
-        const side: Side = Side.CT
+        const side: ISide = ISide.CT
         const image: string = "path/to/img"
         super(id, image, side);
     }
