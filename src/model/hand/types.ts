@@ -1,7 +1,8 @@
 import { ICard } from "../card/types"
+import { IDiscard, IDraw } from "../deck/types"
 
 export interface IHand {
     cards: ICard[]
-    draw: (card: ICard) => void
-    discard: (cardId: number) => void
+    take: (draw: IDraw) => void
+    discard: (cardId: number, discard: IDiscard) => void
 }

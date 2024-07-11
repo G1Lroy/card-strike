@@ -20,6 +20,8 @@ export abstract class Card implements ICard {
         this.descripBg = descripBg
     }
 
-    abstract play(target: IAgent): void
+    play(target: IAgent): void {
+        console.log(target, this);
+    }
 
 }

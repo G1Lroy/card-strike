@@ -1,5 +1,5 @@
 import { Card } from ".";
-import { IAgent, IWeapon } from "../agent/types";
+import { IWeapon } from "../agent/types";
 
 export class WeaponCard extends Card {
     effect: IWeapon;
@@ -9,7 +9,4 @@ export class WeaponCard extends Card {
         this.effect = effect;
     }
 
-    play(target: IAgent): void {
-        console.log(target);
-    }
 }
