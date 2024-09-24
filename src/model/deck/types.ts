@@ -13,3 +13,8 @@ export interface IDraw extends IDeck {
 export interface IDiscard extends IDeck {
     add(card: ICard): void
 }
+
+export interface IHand extends IDeck {
+    take: (draw: IDraw) => void
+    discard: (cardId: number, discard: IDiscard) => void
+}

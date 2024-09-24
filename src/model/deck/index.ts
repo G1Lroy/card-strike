@@ -1,5 +1,5 @@
 import { ICard } from "../card/types";
-import { IDiscard, IDraw } from "./types";
+import { IDiscard, IDraw, IHand } from "./types";
 
 export class Draw implements IDraw {
     cards: ICard[];
@@ -25,7 +25,6 @@ export class Draw implements IDraw {
 
 }
 
-
 export class Discard implements IDiscard {
     cards: ICard[];
 
@@ -35,4 +34,26 @@ export class Discard implements IDiscard {
     add(card: ICard): void {
         this.cards.push(card)
     }
+}
+
+export class Hand implements IHand {
+    cards: ICard[];
+
+    constructor(cards: []) {
+        this.cards = cards
+    }
+
+    take(draw: IDraw): void {
+        this.cards.push(draw.get()!)
+    }
+    discard(cardId: number, discard: IDiscard): void {
+        const index = this.cards.findIndex(c => c.id === cardId);
+        if (index !== -1) {
+            const [discardedCard] = this.cards.splice(index, 1);
+            discard.add(discardedCard);
+        } else {
+            throw new Error(`Card with ID ${cardId} not found`);
+        }
+    }
+
 }

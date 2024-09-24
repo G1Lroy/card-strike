@@ -1,5 +1,5 @@
 import { IAgent, ISide } from "../agent/types";
-import { IHand } from "../hand/types";
+import { IHand } from "../deck/types";
 
 export interface IPlayer {
     side: ISide

@@ -1,6 +1,7 @@
 import { START_MONEY } from "../../const/game-const";
 import { IAgent, ISide } from "../agent/types";
-import { IHand } from "../hand/types";
+import { IHand } from "../deck/types";
+
 
 import { IPlayer } from "./types";
 
